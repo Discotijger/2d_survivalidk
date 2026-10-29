@@ -3,44 +3,80 @@ using UnityEngine.InputSystem;
 
 public class EditorMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject Menu;
-    [SerializeField] private GameObject MbuttonO;
-    [SerializeField] private GameObject MbuttonC;
-    [SerializeField] private GameObject test;
+    [SerializeField] private GameObject _Menu;
+    [SerializeField] private GameObject _MbuttonO;
+    [SerializeField] private GameObject _MbuttonC;
+    [SerializeField] public GameObject _Object1;
+    
+    private GameObject buildingPrefab;
 
-    public Vector3 MousePos;
+    public GameObject currentBuilding;
+    // private bool placing;
+
+
+    public void Object1()
+    {
+        buildingPrefab = _Object1;
+        StartPlacing(buildingPrefab);
+    }
+
+
+    public void StartPlacing(GameObject buildingPrefab)
+    {
+        currentBuilding = buildingPrefab;
+
+        if (buildingPrefab != null)
+        Destroy(buildingPrefab);
+        
+
+        currentBuilding = Instantiate(buildingPrefab);
+        Collider2D col = currentBuilding.GetComponent<Collider2D>();
+        col.enabled = false;
+    }
+
 
     void Update()
     {
-        MousePos = Input.mousePosition;
+        if (currentBuilding == null)
+            return;
+
+        // Follow mouse
+        Vector3 MousePos = Camera.main.ScreenToWorldPoint(
+            Mouse.current.position.ReadValue()
+        );
+
+        MousePos.z = 0;
+        currentBuilding.transform.position = MousePos;
+
+        // Place building
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Instantiate(
+                buildingPrefab,
+                currentBuilding.transform.position,
+                currentBuilding.transform.rotation
+            );
+        }
+
+        // Cancel placement
+        if (Mouse.current.middleButton.wasPressedThisFrame)
+        {
+            Destroy(currentBuilding);
+            currentBuilding = null;
+        }
     }
 
 
     public void eMenuOpen()
     {
-        Menu.SetActive(true);
-        MbuttonO.SetActive(false);
-        MbuttonC.SetActive(true);
+        _Menu.SetActive(true);
+        _MbuttonO.SetActive(false);
+        _MbuttonC.SetActive(true);
     }
     public void eMenuClose()
     {
-        Menu.SetActive(false);
-        MbuttonO.SetActive(true);
-        MbuttonC.SetActive(false);
-    }
-
-
-    // // method used to run methods externaly
-    // public void RunMethod(System.Action method)
-    // {
-    //     method?.Invoke();
-    // }
-
-    
-
-    public void Object1()
-    {
-        Vector3 SpawnPos = new Vector3(MousePos.x, MousePos.y, 0f);
-        Instantiate(test, SpawnPos, Quaternion.identity);
+        _Menu.SetActive(false);
+        _MbuttonO.SetActive(true);
+        _MbuttonC.SetActive(false);
     }
 }

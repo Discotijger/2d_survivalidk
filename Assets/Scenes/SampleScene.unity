@@ -2263,11 +2263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e962baf08a8331b4f8fe166945e54236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Editor
-  Menu: {fileID: 356008904}
-  MbuttonO: {fileID: 1840503747}
-  MbuttonC: {fileID: 570460540}
-  test: {fileID: 6634720347934741433, guid: ea007e90ab0cd324c8d7db6075ab918d, type: 3}
-  cam: {x: 0, y: 0, z: 0}
+  _Menu: {fileID: 356008904}
+  _MbuttonO: {fileID: 1840503747}
+  _MbuttonC: {fileID: 570460540}
+  _Object1: {fileID: 6634720347934741433, guid: ea007e90ab0cd324c8d7db6075ab918d, type: 3}
+  currentBuilding: {fileID: 0}
 --- !u!1 &1840503747
 GameObject:
   m_ObjectHideFlags: 0
