@@ -6,6 +6,8 @@ public class EditorMenu : MonoBehaviour
     [SerializeField] private GameObject _Menu;
     [SerializeField] private GameObject _MbuttonO;
     [SerializeField] private GameObject _MbuttonC;
+
+    //objects to be placed
     [SerializeField] public GameObject _Object1;
     
     private GameObject buildingPrefab;
@@ -13,7 +15,8 @@ public class EditorMenu : MonoBehaviour
     public GameObject currentBuilding;
     // private bool placing;
 
-
+    // Method for a singular Object
+    // add different method and change "_Object1" to Object Added
     public void Object1()
     {
         buildingPrefab = _Object1;
